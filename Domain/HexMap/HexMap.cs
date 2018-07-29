@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using JetBrains.Annotations;
 
 namespace src.Domain.HexMap
@@ -248,17 +247,16 @@ namespace src.Domain.HexMap
             }
             cells.Add(cell);
         }
-        
+
         /// <summary>
         /// 中央を０とした時のQR座標からセルを引っ張り出します
         /// </summary>
-        /// <param name="q">中央を０とした時のq座標</param>
-        /// <param name="r">中央を０とした時のr座標</param>
+        /// <param name="position"></param>
         /// <returns>該当位置のセル</returns>
         /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public Cell getCellAt(int q, int r)
+        public Cell getCellAt(QRCoordinate position)
         {
-            CubeCoordinate position_requested = CubeCoordinate.fromQR(q, r);
+            CubeCoordinate position_requested = CubeCoordinate.fromQR(position);
 
             var cell = findCell(position_requested);
 
@@ -270,6 +268,42 @@ namespace src.Domain.HexMap
             return cell;
         }
 
+
+        /// <summary>
+        /// 指定セルの隣のセルを返す
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns></returns>
+        public List<Cell> findAdjacentOf(Cell cell)
+        {
+            // ６近傍の相対XYZ座標
+            List<CubeCoordinate> adjacent_relative_positions
+                = new List<CubeCoordinate>
+                {
+                    CubeCoordinate.fromXYZ(1,-1,0),
+                    CubeCoordinate.fromXYZ(-1,1,0),
+                    CubeCoordinate.fromXYZ(1,0,-1),
+                    CubeCoordinate.fromXYZ(-1,0,1),
+                    CubeCoordinate.fromXYZ(0,1,-1),
+                    CubeCoordinate.fromXYZ(0,-1,1)
+                };
+            List<CubeCoordinate> position_to_find = new List<CubeCoordinate>();
+            List<Cell> cells_to_return = new List<Cell>();
+            
+            foreach (var relative_position in adjacent_relative_positions)
+            {
+                position_to_find.Add(cell.position + relative_position);
+            }
+
+            foreach (var position_requested in position_to_find)
+            {
+                var cell_found = findCell(position_requested);
+                if (cell_found != null) cells_to_return.Add(cell_found);
+            }
+
+            return cells_to_return;
+        }
+        
         /// <summary>
         /// XYZ座標にあるセルを求めます
         /// </summary>
