@@ -72,6 +72,15 @@ namespace src.Domain.HexMap
         }
 
         /// <summary>
+        /// 自分をQR座標化する
+        /// </summary>
+        /// <returns></returns>
+        public QRCoordinate toQR()
+        {
+            return QRCoordinate.fromXYZ(this);
+        }
+        
+        /// <summary>
         /// QR座標から3次元座標を作る
         /// </summary>
         /// <param name="input"></param>
@@ -158,6 +167,35 @@ namespace src.Domain.HexMap
         public static QRCoordinate fromXYZ(CubeCoordinate input)
         {
             return fromXYZ(input.x, input.y, input.z);
+        }
+
+        /// <summary>
+        /// 自分をXYZ座標化する
+        /// </summary>
+        /// <returns></returns>
+        public CubeCoordinate toXYZ()
+        {
+            return CubeCoordinate.fromQR(this);
+        }
+
+        public static QRCoordinate operator +(QRCoordinate a, QRCoordinate b)
+        {
+            return new QRCoordinate(a.q + b.q, a.r + b.r);
+        }
+
+        public static QRCoordinate operator -(QRCoordinate a, QRCoordinate b)
+        {
+            return new QRCoordinate(a.q - b.q, a.r - b.r);
+        }
+
+        public static bool operator ==(QRCoordinate a, QRCoordinate b)
+        {
+            return a.q == b.q && a.r == b.r;
+        }
+
+        public static bool operator !=(QRCoordinate a, QRCoordinate b)
+        {
+            return a.q != b.q || a.r != b.r;
         }
     }
     
