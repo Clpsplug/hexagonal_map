@@ -48,8 +48,14 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="y">Y座標</param>
         /// <param name="z">Z座標</param>
         /// <remarks>これはそのまま使えない 生成するにはFromCubeなどを使用する</remarks>
+        /// <exception cref="ArgumentException">x + y + z == 0でない時</exception>
         private CubeCoordinate(int x, int y, int z)
         {
+            if (x + y + z != 0)
+            {
+                throw new ArgumentException("Impossible coordinate. x, y, z must add up to 0.", new Exception());
+            }
+            
             this.x = x;
             this.y = y;
             this.z = z;
