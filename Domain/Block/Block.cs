@@ -1,14 +1,12 @@
-namespace src.Domain.Block
+// Example Cell Data Object
+using HexagonalMap.Domain.HexMap;
+
+namespace HexagonalMap.Domain.Block
 {
     public enum States
     {
-        None,
-        Red,
-        Blue,
-        Green,
-        Yellow,
-        Purple,
-        Trash,
+        Foo,
+        Bar,
         Count
     }
 
@@ -20,6 +18,12 @@ namespace src.Domain.Block
             set { _state = value; }
         }
 
+        public Cell _cell
+        {
+            get { return _cell; }
+            private set { _cell = value; }
+        }
+        
         public Block(States state)
         {
             _state = state;

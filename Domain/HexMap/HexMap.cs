@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿/// Hexagonal Map 
+/// https://www.redblobgames.com/grids/hexagons/
 
-namespace src.Domain.HexMap
+using System;
+using System.Collections.Generic;
+
+namespace HexagonalMap.Domain.HexMap
 {
+
     /// <summary>
-    ///  中心型６角形座標を３次元座標として扱うための座標系
+    /// 立方体座標系
     /// </summary>
     public struct CubeCoordinate
     {
         /// X座標 (flat-toppedの場合、左上-左下方向で０)
         /// Y座標 (flat-toppedの場合、上下方向で０)
         /// Z座標 (flat-toppedの場合、右上-右下方向で０)
+        
         
         public int x 
         {
@@ -43,13 +47,13 @@ namespace src.Domain.HexMap
         }
 
         /// <summary>
-        /// XYZ座標から
+        /// Cube座標から
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static CubeCoordinate fromXYZ(int x, int y, int z)
+        public static CubeCoordinate fromCube(int x, int y, int z)
         {
             return new CubeCoordinate(x, y, z);
         }
@@ -59,7 +63,6 @@ namespace src.Domain.HexMap
         /// </summary>
         /// <param name="q"></param>
         /// <param name="r"></param>
-        /// <remarks>https://www.redblobgames.com/grids/hexagons/</remarks>
         /// <returns></returns>
         public static CubeCoordinate fromQR(int q, int r)
         {
@@ -76,7 +79,7 @@ namespace src.Domain.HexMap
         /// <returns></returns>
         public QRCoordinate toQR()
         {
-            return QRCoordinate.fromXYZ(this);
+            return QRCoordinate.fromCube(this);
         }
         
         /// <summary>
@@ -87,6 +90,23 @@ namespace src.Domain.HexMap
         public static CubeCoordinate fromQR(QRCoordinate input)
         {
             return fromQR(input.q, input.r);
+        }
+        
+        /// <summary>
+        /// ある座標から６近傍を見つけるための相対座標を返す
+        /// </summary>
+        /// <returns>それぞれを座標に加算すれば６近傍を表す座標になる</returns>
+        public static List<CubeCoordinate> AdjacentRelatives()
+        {
+            return new List<CubeCoordinate>
+            {
+                CubeCoordinate.fromCube(1,-1,0),
+                CubeCoordinate.fromCube(-1,1,0),
+                CubeCoordinate.fromCube(1,0,-1),
+                CubeCoordinate.fromCube(-1,0,1),
+                CubeCoordinate.fromCube(0,1,-1),
+                CubeCoordinate.fromCube(0,-1,1)
+            };
         }
         
         public static CubeCoordinate operator +(CubeCoordinate a, CubeCoordinate b)
@@ -108,8 +128,27 @@ namespace src.Domain.HexMap
         {
             return (a.x != b.x || a.y != b.y || a.z != b.z);
         }
+
+        public override int GetHashCode()
+        {
+            return x ^ y ^ z;
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (!(obj is CubeCoordinate))
+            {
+                return false;
+            }
+
+            var coordinate = (CubeCoordinate) obj;
+            return coordinate == this;
+        }
     }
 
+    /// <summary>
+    /// QR座標系
+    /// </summary>
     public struct QRCoordinate
     {
         public int q
@@ -136,7 +175,7 @@ namespace src.Domain.HexMap
         }
 
         /// <summary>
-        /// 
+        /// Q,Rの値から作る
         /// </summary>
         /// <param name="q"></param>
         /// <param name="r"></param>
@@ -147,25 +186,25 @@ namespace src.Domain.HexMap
         }
 
         /// <summary>
-        /// XYZ座標から
+        /// Cube座標からQR座標を作る
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static QRCoordinate fromXYZ(int x, int y, int z)
+        public static QRCoordinate fromCube(int x, int y, int z)
         {
             return new QRCoordinate(x, z);
         }
 
         /// <summary>
-        /// XYZ座標から
+        /// Cube座標からQR座標を作る
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static QRCoordinate fromXYZ(CubeCoordinate input)
+        public static QRCoordinate fromCube(CubeCoordinate input)
         {
-            return fromXYZ(input.x, input.y, input.z);
+            return fromCube(input.x, input.y, input.z);
         }
 
         /// <summary>
@@ -196,12 +235,29 @@ namespace src.Domain.HexMap
         {
             return a.q != b.q || a.r != b.r;
         }
+
+        public override int GetHashCode()
+        {
+            return q ^ r;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is QRCoordinate))
+            {
+                return false;
+            }
+
+            var coordinate = (QRCoordinate) obj;
+            return coordinate == this;
+        }
     }
     
 
     /// <summary>
-    /// ブロック１個分のデータ
+    /// 座標位置を表すオブジェクト
     /// </summary>
+    /// <remarks>内部的にはCube座標で持つが相互変換可能。実データにこれを関連づけると良い</remarks>
     public class Cell
     {
         public CubeCoordinate position
@@ -210,28 +266,19 @@ namespace src.Domain.HexMap
             private set { position = value; }
         }
 
-        [NotNull]
-        public Block.Block data
-        {
-            get { return data; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException("value");
-                data = value;
-            }
-        }
-
-        public Cell(CubeCoordinate position, Block.Block data)
+        public Cell(CubeCoordinate position)
         {
             this.position = position;
-            this.data = data;
         }
-        
-        
     }
 
+    /// <summary>
+    /// ６角形座標系の平面を表す
+    /// </summary>
+    /// <remarks>ここにCellを展開することで見つけることが可能</remarks>
     public class Field
     {
+        // TODO: セルをハッシュテーブルで保管した方が絶対高速
         private List<Cell> cells;
 
         /// <summary>
@@ -241,7 +288,7 @@ namespace src.Domain.HexMap
         /// <exception cref="ArgumentException">すでにあるセルと座標が重複した時</exception>
         public void addCell(Cell cell)
         {
-            if (findCell(cell.position) != null)
+            if (getCellAtCube(cell.position) != null)
             {
                 throw new ArgumentException("追加しようとしたセルの座標には別のセルがすでにいます", new Exception());
             }
@@ -254,20 +301,32 @@ namespace src.Domain.HexMap
         /// <param name="position"></param>
         /// <returns>該当位置のセル</returns>
         /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public Cell getCellAt(QRCoordinate position)
+        public Cell getCellAtQR(QRCoordinate position)
         {
             CubeCoordinate position_requested = CubeCoordinate.fromQR(position);
 
-            var cell = findCell(position_requested);
-
-            if (cell == null)
-            {
-                throw new ArgumentOutOfRangeException("セルがフィールド外にいます もしくはその座標のセルがフィールドから抜け落ちています", new Exception());   
-            }
+            var cell = getCellAtCube(position_requested);
 
             return cell;
         }
 
+        /// <summary>
+        /// Cube座標にあるセルを求めます
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
+        public Cell getCellAtCube(CubeCoordinate position)
+        {
+            foreach (var cell in cells)
+            {
+                if (cell.position == position)
+                {
+                    return cell;
+                }
+            }
+            throw new ArgumentOutOfRangeException("その座標はフィールド外です もしくはその座標のセルがフィールドから抜け落ちています", new Exception());   
+        }
 
         /// <summary>
         /// 指定セルの隣のセルを返す
@@ -276,17 +335,7 @@ namespace src.Domain.HexMap
         /// <returns></returns>
         public List<Cell> findAdjacentOf(Cell cell)
         {
-            // ６近傍の相対XYZ座標
-            List<CubeCoordinate> adjacent_relative_positions
-                = new List<CubeCoordinate>
-                {
-                    CubeCoordinate.fromXYZ(1,-1,0),
-                    CubeCoordinate.fromXYZ(-1,1,0),
-                    CubeCoordinate.fromXYZ(1,0,-1),
-                    CubeCoordinate.fromXYZ(-1,0,1),
-                    CubeCoordinate.fromXYZ(0,1,-1),
-                    CubeCoordinate.fromXYZ(0,-1,1)
-                };
+            List<CubeCoordinate> adjacent_relative_positions = CubeCoordinate.AdjacentRelatives();
             List<CubeCoordinate> position_to_find = new List<CubeCoordinate>();
             List<Cell> cells_to_return = new List<Cell>();
             
@@ -297,28 +346,12 @@ namespace src.Domain.HexMap
 
             foreach (var position_requested in position_to_find)
             {
-                var cell_found = findCell(position_requested);
+                var cell_found = getCellAtCube(position_requested);
                 if (cell_found != null) cells_to_return.Add(cell_found);
             }
 
             return cells_to_return;
         }
         
-        /// <summary>
-        /// XYZ座標にあるセルを求めます
-        /// </summary>
-        /// <param name="position"></param>
-        /// <returns></returns>
-        private Cell findCell(CubeCoordinate position)
-        {
-            foreach (var cell in cells)
-            {
-                if (cell.position == position)
-                {
-                    return cell;
-                }
-            }
-            return null;
-        }
     }
 }
