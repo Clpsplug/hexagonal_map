@@ -4,29 +4,37 @@
 using System;
 using System.Collections.Generic;
 
+/*! 六角座標系・六角平面定義 */
 namespace HexagonalMap.Domain.HexMap
 {
 
     /// <summary>
     /// 立方体座標系
     /// </summary>
+    /// <remarks>立方体と x + y + z = 0 なる平面との切り口を元にした座標系</remarks>
     public struct CubeCoordinate
     {
+        /// <summary>
         /// X座標 (flat-toppedの場合、左上-左下方向で０)
-        /// Y座標 (flat-toppedの場合、上下方向で０)
-        /// Z座標 (flat-toppedの場合、右上-右下方向で０)
-        
-        
+        /// </summary>
         public int x 
         {
             get { return x; }
             private set { x = value; }
         }
+        
+        /// <summary>
+        /// Y座標 (flat-toppedの場合、上下方向で０)
+        /// </summary>
         public int y
         {
             get { return y; }
             private set { y = value; }
         }
+        
+        /// <summary>
+        /// Z座標 (flat-toppedの場合、右上-右下方向で０)
+        /// </summary>
         public int z
         {
             get { return z; }
@@ -36,9 +44,10 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">X座標</param>
+        /// <param name="y">Y座標</param>
+        /// <param name="z">Z座標</param>
+        /// <remarks>これはそのまま使えない 生成するにはFromCubeなどを使用する</remarks>
         private CubeCoordinate(int x, int y, int z)
         {
             this.x = x;
@@ -47,23 +56,23 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// Cube座標から
+        /// Cube座標の数値からCube座標を生成する
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">X座標</param>
+        /// <param name="y">Y座標</param>
+        /// <param name="z">Z座標</param>
+        /// <returns>Cube座標オブジェクト</returns>
         public static CubeCoordinate FromCube(int x, int y, int z)
         {
             return new CubeCoordinate(x, y, z);
         }
   
         /// <summary>
-        /// QR座標から3次元座標を作る
+        /// QR座標の数値からCube座標を生成する
         /// </summary>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <returns></returns>
+        /// <param name="q">Q座標</param>
+        /// <param name="r">R座標</param>
+        /// <returns>Cube座標オブジェクト</returns>
         public static CubeCoordinate FromQr(int q, int r)
         {
             var x = q;
@@ -74,10 +83,10 @@ namespace HexagonalMap.Domain.HexMap
         }
         
         /// <summary>
-        /// QR座標から3次元座標を作る
+        /// QR座標オブジェクトからCube座標を生成する
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">QR座標オブジェクト</param>
+        /// <returns>Cube座標オブジェクト</returns>
         public static CubeCoordinate FromQr(QRCoordinate input)
         {
             return FromQr(input.q, input.r);
@@ -86,7 +95,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// 自分をQR座標化する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>QR座標オブジェクト</returns>
         public QRCoordinate ToQr()
         {
             return QRCoordinate.FromCube(this);
@@ -95,7 +104,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// ある座標から６近傍を見つけるための相対座標を返す
         /// </summary>
-        /// <returns>それぞれを座標に加算すれば６近傍を表す座標になる</returns>
+        /// <returns>６近傍の相対座標。それぞれを座標に加算すれば６近傍を表す座標になる</returns>
         public static List<CubeCoordinate> AdjacentRelatives()
         {
             return new List<CubeCoordinate>
@@ -109,31 +118,64 @@ namespace HexagonalMap.Domain.HexMap
             };
         }
         
+        /// <summary>
+        /// 加算 セルからセルへ移動するときに使える
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static CubeCoordinate operator +(CubeCoordinate a, CubeCoordinate b)
         {
             return new CubeCoordinate(a.x + b.x, a.y + b.y, a.z + b.z);   
         }
 
+        /// <summary>
+        /// 減算 距離計測?
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static CubeCoordinate operator -(CubeCoordinate a, CubeCoordinate b)
         {
             return new CubeCoordinate(a.x - b.x, a.y - b.y, a.z - b.z);
         }
 
+        /// <summary>
+        /// 一致
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator ==(CubeCoordinate a, CubeCoordinate b)
         {
             return (a.x == b.x && a.y == b.y && a.z == b.z);
         }
 
+        /// <summary>
+        /// 不一致
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator !=(CubeCoordinate a, CubeCoordinate b)
         {
             return (a.x != b.x || a.y != b.y || a.z != b.z);
         }
 
+        /// <summary>
+        /// ハッシュ生成
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return x ^ y ^ z;
         }
         
+        /// <summary>
+        /// 一致(任意のオブジェクトと)
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (!(obj is CubeCoordinate))
@@ -149,14 +191,21 @@ namespace HexagonalMap.Domain.HexMap
     /// <summary>
     /// QR座標系
     /// </summary>
+    /// <remarks>標準のXY座標の1つの軸が30°傾いた座標。画面への描画を行う際に扱いやすい。</remarks>
     public struct QRCoordinate
     {
+        /// <summary>
+        /// q座標 (flat-topの場合、上下方向で0)
+        /// </summary>
         public int q
         {
             get { return q; }
             private set { q = value; }
         }
 
+        /// <summary>
+        /// r座標 (flat-topの場合、左上-右下方向で0)
+        /// </summary>
         public int r
         {
             get { return r; }
@@ -166,8 +215,8 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
+        /// <param name="q">Q座標</param>
+        /// <param name="r">R座標</param>
         private QRCoordinate(int q, int r)
         {
             this.q = q;
@@ -175,33 +224,33 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// Q,Rの値から作る
+        /// QR座標の数値からQR座標を生成する
         /// </summary>
-        /// <param name="q"></param>
-        /// <param name="r"></param>
-        /// <returns></returns>
+        /// <param name="q">Q座標</param>
+        /// <param name="r">R座標</param>
+        /// <returns>QR座標オブジェクト</returns>
         public static QRCoordinate FromQr(int q, int r)
         {
             return new QRCoordinate(q, r);
         }
 
         /// <summary>
-        /// Cube座標からQR座標を作る
+        /// Cube座標の数値からQR座標を生成する
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">X座標</param>
+        /// <param name="y">Y座標</param>
+        /// <param name="z">Z座標</param>
+        /// <returns>QR座標オブジェクト</returns>
         public static QRCoordinate FromCube(int x, int y, int z)
         {
             return new QRCoordinate(x, z);
         }
 
         /// <summary>
-        /// Cube座標からQR座標を作る
+        /// Cube座標オブジェクトからQR座標を生成する
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">Cube座標オブジェクト</param>
+        /// <returns>QR座標オブジェクト</returns>
         public static QRCoordinate FromCube(CubeCoordinate input)
         {
             return FromCube(input.x, input.y, input.z);
@@ -210,37 +259,70 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// 自分をXYZ座標化する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Cube座標オブジェクト</returns>
         public CubeCoordinate ToCube()
         {
             return CubeCoordinate.FromQr(this);
         }
 
+        /// <summary>
+        /// 加算 セルからセルへ移動するときに使える
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static QRCoordinate operator +(QRCoordinate a, QRCoordinate b)
         {
             return new QRCoordinate(a.q + b.q, a.r + b.r);
         }
 
+        /// <summary>
+        /// 減算 距離計測?
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static QRCoordinate operator -(QRCoordinate a, QRCoordinate b)
         {
             return new QRCoordinate(a.q - b.q, a.r - b.r);
         }
 
+        /// <summary>
+        /// 一致
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator ==(QRCoordinate a, QRCoordinate b)
         {
             return a.q == b.q && a.r == b.r;
         }
 
+        /// <summary>
+        /// 不一致
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool operator !=(QRCoordinate a, QRCoordinate b)
         {
             return a.q != b.q || a.r != b.r;
         }
 
+        /// <summary>
+        /// ハッシュ生成
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return q ^ r;
         }
 
+        /// <summary>
+        /// 一致(任意のオブジェクトと)
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (!(obj is QRCoordinate))
@@ -257,15 +339,22 @@ namespace HexagonalMap.Domain.HexMap
     /// <summary>
     /// 座標位置を表すオブジェクト
     /// </summary>
-    /// <remarks>内部的にはCube座標で持つが相互変換可能。実データにこれを関連づけると良い</remarks>
+    /// <remarks>内部的にはCube座標で持つが、それを取り出して相互変換可能。実データにこれを関連づけると良い</remarks>
     public class Cell
     {
+        /// <summary>
+        /// Cube座標での位置
+        /// </summary>
         public CubeCoordinate Position
         {
             get { return Position; }
             private set { Position = value; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="position">Cube座標で入力。そのほかの座標の場合は変換して入力</param>
         public Cell(CubeCoordinate position)
         {
             Position = position;
@@ -278,9 +367,17 @@ namespace HexagonalMap.Domain.HexMap
     /// <remarks>ここにCellを展開することで見つけることが可能</remarks>
     public class Field
     {
-        // TODO: セルをハッシュテーブルで保管した方が絶対高速
+        /// <summary>
+        /// Cellの集まり
+        /// </summary>
+        /// <remarks>
+        /// TODO: セルをハッシュテーブルで保管した方が高速?
+        /// </remarks>
         private readonly List<Cell> _cells;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Field()
         {
             _cells = new List<Cell>();
@@ -301,7 +398,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 中央を０とした時のQR座標からセルを引っ張り出します
+        /// QR座標からセルを返す
         /// </summary>
         /// <param name="position"></param>
         /// <returns>該当位置のセル</returns>
@@ -316,7 +413,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// Cube座標にあるセルを求めます
+        /// Cube座標にあるセルを返す
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>

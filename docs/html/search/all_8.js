@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['operator_21_3d',['operator!=',['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate.html#a5297a05c605745e289f070b325a3397d',1,'HexagonalMap.Domain.HexMap.CubeCoordinate.operator!=()'],['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate.html#a049c5289a33a9d54f7679f530ce79c71',1,'HexagonalMap.Domain.HexMap.QRCoordinate.operator!=()']]],
+  ['operator_2b',['operator+',['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate.html#aaf0a41b6167fe06325e5eab8b903c012',1,'HexagonalMap.Domain.HexMap.CubeCoordinate.operator+()'],['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate.html#aa00285207f03d8178e4c6905ef96277b',1,'HexagonalMap.Domain.HexMap.QRCoordinate.operator+()']]],
+  ['operator_2d',['operator-',['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate.html#ab94a6ae2126ec743ac77ba162df68966',1,'HexagonalMap.Domain.HexMap.CubeCoordinate.operator-()'],['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate.html#acf310162a1c57c24dd0a096fe585432e',1,'HexagonalMap.Domain.HexMap.QRCoordinate.operator-()']]],
+  ['operator_3d_3d',['operator==',['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate.html#a8906bffe7888dfbb2ffabc1b56cee434',1,'HexagonalMap.Domain.HexMap.CubeCoordinate.operator==()'],['../struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate.html#a599140a6d544578de04111e2acca247d',1,'HexagonalMap.Domain.HexMap.QRCoordinate.operator==()']]]
+];

@@ -1,0 +1,260 @@
+\hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{}\section{Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate Struct Reference}
+\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}\index{Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate@{Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate}}
+
+
+Q\+R座標系  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate}{Cube\+Coordinate}} \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a612e6e65edbcf51cdfe04e196dfe4baa}{To\+Cube}} ()
+\begin{DoxyCompactList}\small\item\em 自分を\+X\+Y\+Z座標化する \end{DoxyCompactList}\item 
+override int \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_af2feec7d7649255353d92a11afdbce44}{Get\+Hash\+Code}} ()
+\begin{DoxyCompactList}\small\item\em ハッシュ生成 \end{DoxyCompactList}\item 
+override bool \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a82851923eac2c88beeac70d9117e5cc0}{Equals}} (object obj)
+\begin{DoxyCompactList}\small\item\em 一致(任意のオブジェクトと) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a25a176d46902a8375cb037c2220a886d}{From\+Qr}} (int \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a2a72acf6695756016491fed0cb909278}{q}}, int \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a8e28e052a706b934419932f039c3b973}{r}})
+\begin{DoxyCompactList}\small\item\em Q\+R座標の数値から\+Q\+R座標を生成する \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a132ea4db8499914df5290d298b685b55}{From\+Cube}} (int x, int y, int z)
+\begin{DoxyCompactList}\small\item\em Cube座標の数値から\+Q\+R座標を生成する \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_ab30ad4d833840a3ecae1321d8209fe5b}{From\+Cube}} (\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate}{Cube\+Coordinate}} input)
+\begin{DoxyCompactList}\small\item\em Cube座標オブジェクトから\+Q\+R座標を生成する \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_aa00285207f03d8178e4c6905ef96277b}{operator+}} (\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} a, \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} b)
+\begin{DoxyCompactList}\small\item\em 加算 セルからセルへ移動するときに使える \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_acf310162a1c57c24dd0a096fe585432e}{operator-\/}} (\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} a, \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} b)
+\begin{DoxyCompactList}\small\item\em 減算 距離計測? \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a599140a6d544578de04111e2acca247d}{operator==}} (\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} a, \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} b)
+\begin{DoxyCompactList}\small\item\em 一致 \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a049c5289a33a9d54f7679f530ce79c71}{operator!=}} (\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} a, \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} b)
+\begin{DoxyCompactList}\small\item\em 不一致 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a2a72acf6695756016491fed0cb909278}{q}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em q座標 (flat-\/topの場合、上下方向で0) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a8e28e052a706b934419932f039c3b973}{r}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em r座標 (flat-\/topの場合、左上-\/右下方向で0) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Q\+R座標系 
+
+標準の\+X\+Y座標の1つの軸が30°傾いた座標。画面への描画を行う際に扱いやすい。
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a82851923eac2c88beeac70d9117e5cc0}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a82851923eac2c88beeac70d9117e5cc0}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!Equals@{Equals}}
+\index{Equals@{Equals}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{Equals()}{Equals()}}
+{\footnotesize\ttfamily override bool Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+Equals (\begin{DoxyParamCaption}\item[{object}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+一致(任意のオブジェクトと) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a132ea4db8499914df5290d298b685b55}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a132ea4db8499914df5290d298b685b55}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!From\+Cube@{From\+Cube}}
+\index{From\+Cube@{From\+Cube}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{From\+Cube()}{FromCube()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+From\+Cube (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Cube座標の数値から\+Q\+R座標を生成する 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X座標\\
+\hline
+{\em y} & Y座標\\
+\hline
+{\em z} & Z座標\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+R座標オブジェクト
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_ab30ad4d833840a3ecae1321d8209fe5b}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_ab30ad4d833840a3ecae1321d8209fe5b}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!From\+Cube@{From\+Cube}}
+\index{From\+Cube@{From\+Cube}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{From\+Cube()}{FromCube()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+From\+Cube (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate}{Cube\+Coordinate}}}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Cube座標オブジェクトから\+Q\+R座標を生成する 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & Cube座標オブジェクト\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+R座標オブジェクト
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a25a176d46902a8375cb037c2220a886d}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a25a176d46902a8375cb037c2220a886d}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!From\+Qr@{From\+Qr}}
+\index{From\+Qr@{From\+Qr}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{From\+Qr()}{FromQr()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+From\+Qr (\begin{DoxyParamCaption}\item[{int}]{q,  }\item[{int}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Q\+R座標の数値から\+Q\+R座標を生成する 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & Q座標\\
+\hline
+{\em r} & R座標\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+R座標オブジェクト
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_af2feec7d7649255353d92a11afdbce44}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_af2feec7d7649255353d92a11afdbce44}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!Get\+Hash\+Code@{Get\+Hash\+Code}}
+\index{Get\+Hash\+Code@{Get\+Hash\+Code}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{Get\+Hash\+Code()}{GetHashCode()}}
+{\footnotesize\ttfamily override int Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+Get\+Hash\+Code (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ハッシュ生成 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a049c5289a33a9d54f7679f530ce79c71}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a049c5289a33a9d54f7679f530ce79c71}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily static bool Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+operator!= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{a,  }\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+不一致 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_aa00285207f03d8178e4c6905ef96277b}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_aa00285207f03d8178e4c6905ef96277b}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!operator+@{operator+}}
+\index{operator+@{operator+}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+operator+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{a,  }\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+加算 セルからセルへ移動するときに使える 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_acf310162a1c57c24dd0a096fe585432e}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_acf310162a1c57c24dd0a096fe585432e}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{a,  }\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+減算 距離計測? 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a599140a6d544578de04111e2acca247d}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a599140a6d544578de04111e2acca247d}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!operator==@{operator==}}
+\index{operator==@{operator==}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily static bool Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+operator== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{a,  }\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+一致 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a612e6e65edbcf51cdfe04e196dfe4baa}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a612e6e65edbcf51cdfe04e196dfe4baa}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!To\+Cube@{To\+Cube}}
+\index{To\+Cube@{To\+Cube}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{To\+Cube()}{ToCube()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate}{Cube\+Coordinate}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+To\+Cube (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+自分を\+X\+Y\+Z座標化する 
+
+\begin{DoxyReturn}{Returns}
+Cube座標オブジェクト
+\end{DoxyReturn}
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a2a72acf6695756016491fed0cb909278}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a2a72acf6695756016491fed0cb909278}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!q@{q}}
+\index{q@{q}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{q}{q}}
+{\footnotesize\ttfamily int Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+q\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+q座標 (flat-\/topの場合、上下方向で0) 
+
+\mbox{\Hypertarget{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a8e28e052a706b934419932f039c3b973}\label{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate_a8e28e052a706b934419932f039c3b973}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}!r@{r}}
+\index{r@{r}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Q\+R\+Coordinate}}
+\subsubsection{\texorpdfstring{r}{r}}
+{\footnotesize\ttfamily int Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Q\+R\+Coordinate.\+r\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+r座標 (flat-\/topの場合、左上-\/右下方向で0) 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Domain/\+Hex\+Map/Hex\+Map.\+cs\end{DoxyCompactItemize}
