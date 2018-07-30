@@ -1,5 +1,5 @@
-﻿/// Hexagonal Map 
-/// https://www.redblobgames.com/grids/hexagons/
+﻿// Hexagonal Map 
+// https://www.redblobgames.com/grids/hexagons/
 
 using System;
 using System.Collections.Generic;
@@ -53,7 +53,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static CubeCoordinate fromCube(int x, int y, int z)
+        public static CubeCoordinate FromCube(int x, int y, int z)
         {
             return new CubeCoordinate(x, y, z);
         }
@@ -64,7 +64,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="q"></param>
         /// <param name="r"></param>
         /// <returns></returns>
-        public static CubeCoordinate fromQR(int q, int r)
+        public static CubeCoordinate FromQr(int q, int r)
         {
             var x = q;
             var z = r;
@@ -72,24 +72,24 @@ namespace HexagonalMap.Domain.HexMap
             
             return new CubeCoordinate(x, y, z);
         }
-
-        /// <summary>
-        /// 自分をQR座標化する
-        /// </summary>
-        /// <returns></returns>
-        public QRCoordinate toQR()
-        {
-            return QRCoordinate.fromCube(this);
-        }
         
         /// <summary>
         /// QR座標から3次元座標を作る
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static CubeCoordinate fromQR(QRCoordinate input)
+        public static CubeCoordinate FromQr(QRCoordinate input)
         {
-            return fromQR(input.q, input.r);
+            return FromQr(input.q, input.r);
+        }
+
+        /// <summary>
+        /// 自分をQR座標化する
+        /// </summary>
+        /// <returns></returns>
+        public QRCoordinate ToQr()
+        {
+            return QRCoordinate.FromCube(this);
         }
         
         /// <summary>
@@ -100,12 +100,12 @@ namespace HexagonalMap.Domain.HexMap
         {
             return new List<CubeCoordinate>
             {
-                CubeCoordinate.fromCube(1,-1,0),
-                CubeCoordinate.fromCube(-1,1,0),
-                CubeCoordinate.fromCube(1,0,-1),
-                CubeCoordinate.fromCube(-1,0,1),
-                CubeCoordinate.fromCube(0,1,-1),
-                CubeCoordinate.fromCube(0,-1,1)
+                FromCube(1,-1,0),
+                FromCube(-1,1,0),
+                FromCube(1,0,-1),
+                FromCube(-1,0,1),
+                FromCube(0,1,-1),
+                FromCube(0,-1,1)
             };
         }
         
@@ -180,7 +180,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="q"></param>
         /// <param name="r"></param>
         /// <returns></returns>
-        public static QRCoordinate fromQR(int q, int r)
+        public static QRCoordinate FromQr(int q, int r)
         {
             return new QRCoordinate(q, r);
         }
@@ -192,7 +192,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static QRCoordinate fromCube(int x, int y, int z)
+        public static QRCoordinate FromCube(int x, int y, int z)
         {
             return new QRCoordinate(x, z);
         }
@@ -202,18 +202,18 @@ namespace HexagonalMap.Domain.HexMap
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static QRCoordinate fromCube(CubeCoordinate input)
+        public static QRCoordinate FromCube(CubeCoordinate input)
         {
-            return fromCube(input.x, input.y, input.z);
+            return FromCube(input.x, input.y, input.z);
         }
 
         /// <summary>
         /// 自分をXYZ座標化する
         /// </summary>
         /// <returns></returns>
-        public CubeCoordinate toXYZ()
+        public CubeCoordinate ToCube()
         {
-            return CubeCoordinate.fromQR(this);
+            return CubeCoordinate.FromQr(this);
         }
 
         public static QRCoordinate operator +(QRCoordinate a, QRCoordinate b)
@@ -260,15 +260,15 @@ namespace HexagonalMap.Domain.HexMap
     /// <remarks>内部的にはCube座標で持つが相互変換可能。実データにこれを関連づけると良い</remarks>
     public class Cell
     {
-        public CubeCoordinate position
+        public CubeCoordinate Position
         {
-            get { return position; }
-            private set { position = value; }
+            get { return Position; }
+            private set { Position = value; }
         }
 
         public Cell(CubeCoordinate position)
         {
-            this.position = position;
+            Position = position;
         }
     }
 
@@ -279,20 +279,25 @@ namespace HexagonalMap.Domain.HexMap
     public class Field
     {
         // TODO: セルをハッシュテーブルで保管した方が絶対高速
-        private List<Cell> cells;
+        private readonly List<Cell> _cells;
 
+        public Field()
+        {
+            _cells = new List<Cell>();
+        }
+        
         /// <summary>
         /// セルをフィールドに追加
         /// </summary>
         /// <param name="cell"></param>
         /// <exception cref="ArgumentException">すでにあるセルと座標が重複した時</exception>
-        public void addCell(Cell cell)
+        public void AddCell(Cell cell)
         {
-            if (getCellAtCube(cell.position) != null)
+            if (GetCellAtCube(cell.Position) != null)
             {
                 throw new ArgumentException("追加しようとしたセルの座標には別のセルがすでにいます", new Exception());
             }
-            cells.Add(cell);
+            _cells.Add(cell);
         }
 
         /// <summary>
@@ -301,11 +306,11 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="position"></param>
         /// <returns>該当位置のセル</returns>
         /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public Cell getCellAtQR(QRCoordinate position)
+        public Cell GetCellAtQr(QRCoordinate position)
         {
-            CubeCoordinate position_requested = CubeCoordinate.fromQR(position);
+            CubeCoordinate positionRequested = CubeCoordinate.FromQr(position);
 
-            var cell = getCellAtCube(position_requested);
+            var cell = GetCellAtCube(positionRequested);
 
             return cell;
         }
@@ -316,11 +321,11 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="position"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public Cell getCellAtCube(CubeCoordinate position)
+        public Cell GetCellAtCube(CubeCoordinate position)
         {
-            foreach (var cell in cells)
+            foreach (var cell in _cells)
             {
-                if (cell.position == position)
+                if (cell.Position == position)
                 {
                     return cell;
                 }
@@ -333,24 +338,24 @@ namespace HexagonalMap.Domain.HexMap
         /// </summary>
         /// <param name="cell"></param>
         /// <returns></returns>
-        public List<Cell> findAdjacentOf(Cell cell)
+        public List<Cell> FindAdjacentOf(Cell cell)
         {
-            List<CubeCoordinate> adjacent_relative_positions = CubeCoordinate.AdjacentRelatives();
-            List<CubeCoordinate> position_to_find = new List<CubeCoordinate>();
-            List<Cell> cells_to_return = new List<Cell>();
+            List<CubeCoordinate> adjacentRelativePositions = CubeCoordinate.AdjacentRelatives();
+            List<CubeCoordinate> positionToFind = new List<CubeCoordinate>();
+            List<Cell> cellsToReturn = new List<Cell>();
             
-            foreach (var relative_position in adjacent_relative_positions)
+            foreach (var relativePosition in adjacentRelativePositions)
             {
-                position_to_find.Add(cell.position + relative_position);
+                positionToFind.Add(cell.Position + relativePosition);
             }
 
-            foreach (var position_requested in position_to_find)
+            foreach (var positionRequested in positionToFind)
             {
-                var cell_found = getCellAtCube(position_requested);
-                if (cell_found != null) cells_to_return.Add(cell_found);
+                var cellFound = GetCellAtCube(positionRequested);
+                if (cellFound != null) cellsToReturn.Add(cellFound);
             }
 
-            return cells_to_return;
+            return cellsToReturn;
         }
         
     }
