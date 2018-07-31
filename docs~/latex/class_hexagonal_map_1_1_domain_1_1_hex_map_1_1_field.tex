@@ -1,0 +1,130 @@
+\hypertarget{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field}{}\section{Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field Class Reference}
+\label{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field}\index{Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field@{Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field}}
+
+
+６角形座標系の平面を表すオブジェクトの抽象クラス  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_ac69714e5b08a8cdddf5d3a2f3aa27b71}{Field}} ()
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_ab022ecaed4c11eb5f1d06a77f2f3cd9f}{Add\+Cell}} (\mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}} cell)
+\begin{DoxyCompactList}\small\item\em セルをフィールドに追加 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}} \mbox{\hyperlink{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_a3479cf0b4b514e3172a449d09ad77e30}{Get\+Cell\+At\+Qr}} (\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}} position)
+\begin{DoxyCompactList}\small\item\em Q\+R座標からセルを返す \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}} \mbox{\hyperlink{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_a0c3fd9988752cca3d153d606004c9d01}{Get\+Cell\+At\+Cube}} (\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate}{Cube\+Coordinate}} position)
+\begin{DoxyCompactList}\small\item\em Cube座標にあるセルを返す \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}} $>$ \mbox{\hyperlink{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_afce23434d637e17aaef285c5b4b9440b}{Find\+Adjacent\+Of}} (\mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}} cell)
+\begin{DoxyCompactList}\small\item\em 指定セルの隣のセルを返す \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+６角形座標系の平面を表すオブジェクトの抽象クラス 
+
+ここに\+I\+Cellを実装したオブジェクトを展開することができる。 これを継承した場合、指定のセルからの隣接セルを見つけられるようになる 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_ac69714e5b08a8cdddf5d3a2f3aa27b71}\label{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_ac69714e5b08a8cdddf5d3a2f3aa27b71}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}!Field@{Field}}
+\index{Field@{Field}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}}
+\subsubsection{\texorpdfstring{Field()}{Field()}}
+{\footnotesize\ttfamily Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field.\+Field (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_ab022ecaed4c11eb5f1d06a77f2f3cd9f}\label{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_ab022ecaed4c11eb5f1d06a77f2f3cd9f}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}!Add\+Cell@{Add\+Cell}}
+\index{Add\+Cell@{Add\+Cell}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}}
+\subsubsection{\texorpdfstring{Add\+Cell()}{AddCell()}}
+{\footnotesize\ttfamily void Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field.\+Add\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}}}]{cell }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+セルをフィールドに追加 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Argument\+Exception} & すでにあるセルと座標が重複した時\\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_afce23434d637e17aaef285c5b4b9440b}\label{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_afce23434d637e17aaef285c5b4b9440b}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}!Find\+Adjacent\+Of@{Find\+Adjacent\+Of}}
+\index{Find\+Adjacent\+Of@{Find\+Adjacent\+Of}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}}
+\subsubsection{\texorpdfstring{Find\+Adjacent\+Of()}{FindAdjacentOf()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}}$>$ Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field.\+Find\+Adjacent\+Of (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}}}]{cell }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+指定セルの隣のセルを返す 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_a0c3fd9988752cca3d153d606004c9d01}\label{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_a0c3fd9988752cca3d153d606004c9d01}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}!Get\+Cell\+At\+Cube@{Get\+Cell\+At\+Cube}}
+\index{Get\+Cell\+At\+Cube@{Get\+Cell\+At\+Cube}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}}
+\subsubsection{\texorpdfstring{Get\+Cell\+At\+Cube()}{GetCellAtCube()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field.\+Get\+Cell\+At\+Cube (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_cube_coordinate}{Cube\+Coordinate}}}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cube座標にあるセルを返す 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Argument\+Out\+Of\+Range\+Exception} & 対象の座標のセルがない時\\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_a3479cf0b4b514e3172a449d09ad77e30}\label{class_hexagonal_map_1_1_domain_1_1_hex_map_1_1_field_a3479cf0b4b514e3172a449d09ad77e30}} 
+\index{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}!Get\+Cell\+At\+Qr@{Get\+Cell\+At\+Qr}}
+\index{Get\+Cell\+At\+Qr@{Get\+Cell\+At\+Qr}!Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field@{Hexagonal\+Map\+::\+Domain\+::\+Hex\+Map\+::\+Field}}
+\subsubsection{\texorpdfstring{Get\+Cell\+At\+Qr()}{GetCellAtQr()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interface_hexagonal_map_1_1_domain_1_1_hex_map_1_1_i_cell}{I\+Cell}} Hexagonal\+Map.\+Domain.\+Hex\+Map.\+Field.\+Get\+Cell\+At\+Qr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_hexagonal_map_1_1_domain_1_1_hex_map_1_1_q_r_coordinate}{Q\+R\+Coordinate}}}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Q\+R座標からセルを返す 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+該当位置のセル
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Argument\+Out\+Of\+Range\+Exception} & 対象の座標のセルがない時\\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Domain/\+Hex\+Map/Hex\+Map.\+cs\end{DoxyCompactItemize}
