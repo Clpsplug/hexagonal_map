@@ -35,7 +35,7 @@ somewhere else, just create new coordinate object with modified value.
 > and distances.  
 >  \- Red Blob Games
 
-Use `HexagonalMap.Domain.HexMap.CubeCoordinates` to represent
+Use `HexagonalMap.Domain.HexMap.CubeCoordinate` to represent
 the cube coordinates.
 
 ```c#
@@ -68,9 +68,9 @@ Find if two coordinate match simply using `==`
 (or don't match using `!=`)
 
 ```c#
-var a = CubeCoordinates.fromXYZ(0,0,0);
-var b = CubeCoordinates.fromXYZ(0,0,0);
-var c = CubeCoordinates.fromXYZ(1,0,-1);
+var a = CubeCoordinates.fromCube(0,0,0);
+var b = CubeCoordinates.fromCube(0,0,0);
+var c = CubeCoordinates.fromCube(1,0,-1);
 
 a == b // -> true
 a != b // -> false
@@ -81,15 +81,15 @@ a != c // -> true
 ### QR Coordinates (Axial Coordinates)
 
 > The axial coordinate system, sometimes called 
-“trapezoidal” or “oblique” or “skewed”, 
-is built by taking two of the three coordinates 
-from a cube coordinate system.   
-\- Red Blob Games
+> “trapezoidal” or “oblique” or “skewed”, 
+> is built by taking two of the three coordinates 
+> from a cube coordinate system.   
+> \- Red Blob Games
 
 This coordinate is extremely useful for drawing, since you can convert
 the hexagons' position with little math.
 
-Use `HexagonalMap.Domain.HexMap.QRCoordinates` to represent
+Use `HexagonalMap.Domain.HexMap.QRCoordinate` to represent
 the QR coordinates.  
 
 ```
@@ -97,6 +97,9 @@ the QR coordinates.
 var center = QRCoordinates.fromQR(0,0);
 // Top hexagon (in flat-top system)
 var top = QRCoordinates.fromQR(0, -1);
+// Get values of each coordinate
+top.q // -> 0
+top.r // -> -1
 ```
 
 `QRCoordinates` cannot give you the relative coordinate of 6 neighbours,
@@ -126,4 +129,95 @@ var cube = CubeCoordinates.fromQR(0,0); // -> is a Cube coordinate that is equal
 
 ## Field and Cells
 
-TODO
+### Cells
+
+If any of your object in your games needs to know its hexagonal position,
+inherit `HexagonalMap.Domain.HexMap.Cell`.  
+In your constructor, make sure to pass the position of the cell to `Cell`.  
+Example usage can be found in `HexagonalMap.ExampleBlock.Block`.
+
+```c#
+public class Block: Cell
+{
+    public int Score { get; set; }
+
+    // Be sure to include `: base(position)` or it won't compile!
+    public Block (CubeCoordinate position, int score): base(position)
+    {
+        Score = score;
+    }
+}
+```
+
+### Field
+
+`HexagonalMap.Domain.HexMap.Field` can hold objects inheriting `Cell`.
+
+If you need a hexagonal field, inherit `Field` to your class.  
+This will help you finding cells in your game fields.  
+`Field` has a parameterless constructor, so you don't need to worry about
+adding `base()` to your class.  
+
+```c#
+public class Map: Field
+{
+    public int randomParam;
+    public Map(int value)
+    {
+        randomParam = value;
+    }
+}
+```
+
+Here are few things to remember:
+
+1. You need to add your `Cell`s into the field before the field can find them.  
+
+```c#
+var map = new Map(5);
+var block = new Block(CubeCoordinate.fromCube(0,0,0), 50);
+map.AddCell(block);
+```
+
+2. Since you can't change your `Cell`s position directly, if you want cells to move
+to another place, you need to remove it from the map, create new `Cell`
+with different location, and add it back to the `Field`.
+3. `Field` cannot have more than 1 cell at the same spot. Forcing so will
+get you an `ArgumentException`. You can use it to detect collision, if you like.
+
+```c#
+// Moving a cell at the center...
+// Remove it from the field first. RemoveCellAt gives you the removed cell.
+var removedCell = map.RemoveCellAt(CubeCoordinate.fromCube(0,0,0));
+// Recreate your cell data with the new location
+var movedCell = new Block(CubeCoordinate.fromCube(1,0,-1), block.Score);
+// Adding back might yield exception. If it does, resolve the situation first.
+try {
+    map.AddCell(movedCell);
+}
+catch (ArgumentException e)
+{
+    // Collision! It might be that your cell bumped into an enemy.
+}
+```
+
+
+Inheriting `Field` grants you following benefits:
+
+1. You can find a cell at a given coordinate.
+
+```c#
+var foundByCube = map.FindCellAt(CubeCoordinate.fromCube(0,0,0));
+var foundByQR = map.FindCellAt(QRCoordinate.fromQR(0,0));
+```
+
+2. You can find the 6 neighboring cells (if it exists on the `Field`.)
+
+```c#
+map.FindNeighborsOf(foundByCube); // -> returns list of cells up to 6.
+```
+
+# Glitchy behaviors?
+
+Open the issue in this repository! If you provide some reproducable codes,
+things will go smoother!

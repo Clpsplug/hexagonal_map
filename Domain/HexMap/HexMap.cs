@@ -356,6 +356,11 @@ namespace HexagonalMap.Domain.HexMap
         /// Cube座標での位置
         /// </summary>
         public CubeCoordinate Position { get; protected set; }
+
+        public Cell(CubeCoordinate position)
+        {
+            Position = position;
+        }
     }
 
     /// <summary>
@@ -390,7 +395,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <exception cref="ArgumentException">if the position is already occupied</exception>
         public void AddCell(Cell cell)
         {
-            if (GetCellAtCube(cell.Position) != null)
+            if (GetCellAt(cell.Position) != null)
             {
                 throw new ArgumentException("You'll have 2 cells in one position. This isn't allowed.", new Exception());
             }
@@ -398,27 +403,24 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// Get cell from QR coordinates
+        /// Removes a Cell at the given position from the field.
         /// </summary>
         /// <param name="position"></param>
-        /// <returns>Cell found</returns>
-        /// <exception cref="ArgumentOutOfRangeException">if there's no cell in the given position</exception>
-        public Cell GetCellAtQr(QRCoordinate position)
+        /// <returns>Removed Cell</returns>
+        public Cell RemoveCellAt(CubeCoordinate position)
         {
-            var positionRequested = CubeCoordinate.FromQr(position);
-
-            var cell = GetCellAtCube(positionRequested);
-
+            var cell = GetCellAt(position);
+            Cells.Remove(cell);
             return cell;
         }
-
+        
         /// <summary>
         /// Get cell from Cube coordinates
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">if there's no cell in the given position</exception>
-        public Cell GetCellAtCube(CubeCoordinate position)
+        public Cell GetCellAt(CubeCoordinate position)
         {
             foreach (var cell in Cells)
             {
@@ -429,13 +431,29 @@ namespace HexagonalMap.Domain.HexMap
             }
             throw new ArgumentOutOfRangeException("That position is either out of field, or does not contain a cell.", new Exception());   
         }
+        
+        /// <summary>
+        /// Get cell from QR coordinates
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns>Cell found</returns>
+        /// <exception cref="ArgumentOutOfRangeException">if there's no cell in the given position</exception>
+        public Cell GetCellAt(QRCoordinate position)
+        {
+            var positionRequested = CubeCoordinate.FromQr(position);
+
+            var cell = GetCellAt(positionRequested);
+
+            return cell;
+        }
+
 
         /// <summary>
         /// Get the list of neighboring cells (up to 6)
         /// </summary>
         /// <param name="cell">Cell whose neighbor you want to find.</param>
         /// <returns></returns>
-        public List<Cell> FindAdjacentOf(Cell cell)
+        public List<Cell> FindNeighborsOf(Cell cell)
         {
             var adjacentRelativePositions = CubeCoordinate.AdjacentRelatives();
             var positionToFind = new List<CubeCoordinate>();
@@ -448,12 +466,11 @@ namespace HexagonalMap.Domain.HexMap
 
             foreach (var positionRequested in positionToFind)
             {
-                var cellFound = GetCellAtCube(positionRequested);
+                var cellFound = GetCellAt(positionRequested);
                 if (cellFound != null) cellsToReturn.Add(cellFound);
             }
 
             return cellsToReturn;
         }
-        
     }
 }

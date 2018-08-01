@@ -1,11 +1,12 @@
 // Example Cell Data Object
+
 using HexagonalMap.Domain.HexMap;
 
-/*! セルデータ一例 */
-namespace ExampleBlock.ExampleCellData
+/*! Example cell data using HexMap */
+namespace HexagonalMap.ExampleBlock
 {
     /// <summary>
-    /// データの例
+    /// Example Enum
     /// </summary>
     public enum States
     {
@@ -15,37 +16,23 @@ namespace ExampleBlock.ExampleCellData
     }
 
     /// <summary>
-    /// セルデータ
+    /// Example cell data
     /// </summary>
-    public class Block
+    public class Block: Cell
     {
         /// <summary>
-        /// データ
+        /// data
         /// </summary>
-        public States _state
-        {
-            get { return _state; }
-            set { _state = value; }
-        }
+        public States State { get; set; }
 
-        /// <summary>
-        /// 座標位置への参照
-        /// </summary>
-        public Cell _cell
-        {
-            get { return _cell; }
-            private set { _cell = value; }
-        }
-        
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="cell"></param>
+        /// <param name="position"></param>
         /// <param name="state"></param>
-        public Block(Cell cell, States state)
+        public Block(CubeCoordinate position, States state): base(position)
         {
-            _cell = cell;
-            _state = state;
+            State = state;
         }
     }
 }
