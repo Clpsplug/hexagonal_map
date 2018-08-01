@@ -343,35 +343,28 @@ namespace HexagonalMap.Domain.HexMap
     
 
     /// <summary>
-    /// 座標位置を表すオブジェクト
+    /// 座標位置を表すオブジェクトの抽象クラス
     /// </summary>
-    /// <remarks>内部的にはCube座標で持つが、それを取り出して相互変換可能。実データにこれを関連づけると良い</remarks>
-    public class Cell
+    /// <remarks>
+    /// ６角形座標をもたせたいオブジェクトが継承すべき抽象クラス。
+    /// 内部的にはCube座標で持つが、それを取り出して相互変換可能。実データにこれを関連づけると良い
+    /// </remarks>
+    public abstract class ICell
     {
         /// <summary>
         /// Cube座標での位置
         /// </summary>
-        public CubeCoordinate Position
-        {
-            get { return Position; }
-            private set { Position = value; }
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="position">Cube座標で入力。そのほかの座標の場合は変換して入力</param>
-        public Cell(CubeCoordinate position)
-        {
-            Position = position;
-        }
+        public CubeCoordinate Position { get; protected set; }
     }
 
     /// <summary>
-    /// ６角形座標系の平面を表す
+    /// ６角形座標系の平面を表すオブジェクトの抽象クラス
     /// </summary>
-    /// <remarks>ここにCellを展開することで見つけることが可能</remarks>
-    public class Field
+    /// <remarks>
+    /// ここにICellを実装したオブジェクトを展開することができる。
+    /// これを継承した場合、指定のセルからの隣接セルを見つけられるようになる
+    /// </remarks>
+    public abstract class Field
     {
         /// <summary>
         /// Cellの集まり
@@ -379,14 +372,14 @@ namespace HexagonalMap.Domain.HexMap
         /// <remarks>
         /// TODO: セルをハッシュテーブルで保管した方が高速?
         /// </remarks>
-        private readonly List<Cell> _cells;
+        private readonly List<ICell> _cells;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public Field()
         {
-            _cells = new List<Cell>();
+            _cells = new List<ICell>();
         }
         
         /// <summary>
@@ -394,7 +387,7 @@ namespace HexagonalMap.Domain.HexMap
         /// </summary>
         /// <param name="cell"></param>
         /// <exception cref="ArgumentException">すでにあるセルと座標が重複した時</exception>
-        public void AddCell(Cell cell)
+        public void AddCell(ICell cell)
         {
             if (GetCellAtCube(cell.Position) != null)
             {
@@ -409,7 +402,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="position"></param>
         /// <returns>該当位置のセル</returns>
         /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public Cell GetCellAtQr(QRCoordinate position)
+        public ICell GetCellAtQr(QRCoordinate position)
         {
             CubeCoordinate positionRequested = CubeCoordinate.FromQr(position);
 
@@ -424,7 +417,7 @@ namespace HexagonalMap.Domain.HexMap
         /// <param name="position"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public Cell GetCellAtCube(CubeCoordinate position)
+        public ICell GetCellAtCube(CubeCoordinate position)
         {
             foreach (var cell in _cells)
             {
@@ -441,11 +434,11 @@ namespace HexagonalMap.Domain.HexMap
         /// </summary>
         /// <param name="cell"></param>
         /// <returns></returns>
-        public List<Cell> FindAdjacentOf(Cell cell)
+        public List<ICell> FindAdjacentOf(ICell cell)
         {
             List<CubeCoordinate> adjacentRelativePositions = CubeCoordinate.AdjacentRelatives();
             List<CubeCoordinate> positionToFind = new List<CubeCoordinate>();
-            List<Cell> cellsToReturn = new List<Cell>();
+            List<ICell> cellsToReturn = new List<ICell>();
             
             foreach (var relativePosition in adjacentRelativePositions)
             {
