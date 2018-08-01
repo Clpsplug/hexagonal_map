@@ -1,6 +1,9 @@
 # This project has no dependency on Unity, so it's safe to ignore meta
 *.meta
 
+# User should generate docs on their own. If they do, they shouldn't publish them
+docs/
+
 # =============== #
 # Unity generated #
 # =============== #
