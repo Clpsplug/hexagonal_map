@@ -40,15 +40,15 @@ the cube coordinates.
 
 ```c#
 // The center
-var center = CubeCoordinates.fromCube(0,0,0);
+var center = CubeCoordinate.fromCube(0,0,0);
 // Top hexagon (in flat-top system)
-var top = CubeCoordinates.fromCube(0,1,-1);
+var top = CubeCoordinate.fromCube(0,1,-1);
 // You can access each coordinate via:
 top.x // -> 0
 top.y // -> 1
 top.z // -> -1
 // Note that in Cube coordinate, x + y + z is always 0. If they aren't, it will yield an exception.
-var fail = CubeCoordinates.fromCube(1,2,3); // -> ArgumentException
+var fail = CubeCoordinate.fromCube(1,2,3); // -> ArgumentException
 ```
 
 Addition and Deduction are implemented. This is important
@@ -57,8 +57,8 @@ when finding the 6 neighbours.
 ```c#
 // CubeCoordinates has a method to return a list of relative positions
 // of the 6 neighbours. 
-var relativeNeighbours = CubeCoordinates.AdjacentRelatives();
-var origin = CubeCoordinates.fromCube(0,0,0);
+var relativeNeighbours = CubeCoordinate.AdjacentRelatives();
+var origin = CubeCoordinate.fromCube(0,0,0);
 foreach (var relative in relativeNeighbours) {
     origin + relative // -> is the coordinate for one of the neighbour of origin.
 }
@@ -68,9 +68,9 @@ Find if two coordinate match simply using `==`
 (or don't match using `!=`)
 
 ```c#
-var a = CubeCoordinates.fromCube(0,0,0);
-var b = CubeCoordinates.fromCube(0,0,0);
-var c = CubeCoordinates.fromCube(1,0,-1);
+var a = CubeCoordinate.fromCube(0,0,0);
+var b = CubeCoordinate.fromCube(0,0,0);
+var c = CubeCoordinate.fromCube(1,0,-1);
 
 a == b // -> true
 a != b // -> false
@@ -94,9 +94,9 @@ the QR coordinates.
 
 ```
 // The center
-var center = QRCoordinates.fromQR(0,0);
+var center = QRCoordinate.fromQR(0,0);
 // Top hexagon (in flat-top system)
-var top = QRCoordinates.fromQR(0, -1);
+var top = QRCoordinate.fromQR(0, -1);
 // Get values of each coordinate
 top.q // -> 0
 top.r // -> -1
@@ -112,10 +112,10 @@ Cube Coordinates and QR Coordinates can be converted into each other.
 Simply call:
 
 ```c#
-var qr = QRCoordinates.fromQR(0,0);
-var cube = CubeCoordinates.fromCube(0,0,0);
-QRCoordinates.fromCube(cube); // -> returns a QR coordinate for the given Cube coordinate
-CubeCoordinates.fromQR(qr); // -> returns a Cube coordinate for the given QR coordinate
+var qr = QRCoordinate.fromQR(0,0);
+var cube = CubeCoordinate.fromCube(0,0,0);
+QRCoordinate.fromCube(cube); // -> returns a QR coordinate for the given Cube coordinate
+CubeCoordinate.fromQR(qr); // -> returns a Cube coordinate for the given QR coordinate
 qr.toCube(); // -> converts itself (QR) into Cube coordinate
 cube.toQR(); // -> converts itself (Cube) into QR coordinate
 ```
@@ -123,8 +123,8 @@ cube.toQR(); // -> converts itself (Cube) into QR coordinate
 You can also directly create those coordinates with values for other system:
 
 ```
-var qr = QRCoordinates.fromCube(0,0,0); // -> is a QR coordinate that is equal to Cube coordinate (0,0,0)
-var cube = CubeCoordinates.fromQR(0,0); // -> is a Cube coordinate that is equal to QR coordinate (0,0)
+var qr = QRCoordinate.fromCube(0,0,0); // -> is a QR coordinate that is equal to Cube coordinate (0,0,0)
+var cube = CubeCoordinate.fromQR(0,0); // -> is a Cube coordinate that is equal to QR coordinate (0,0)
 ```
 
 ## Field and Cells
