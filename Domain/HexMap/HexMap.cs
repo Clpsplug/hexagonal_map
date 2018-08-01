@@ -4,18 +4,18 @@
 using System;
 using System.Collections.Generic;
 
-/*! 六角座標系・六角平面定義 */
+/*! Hexagonal Coordinates and Hexagonal Field */
 namespace HexagonalMap.Domain.HexMap
 {
 
     /// <summary>
-    /// 立方体座標系
+    /// Cube coordinates
     /// </summary>
-    /// <remarks>立方体と x + y + z = 0 なる平面との切り口を元にした座標系</remarks>
+    /// <remarks>Coordinates based on a cube and a plane x + y + z = 0 slicing the cube</remarks>
     public struct CubeCoordinate
     {
         /// <summary>
-        /// X座標 (flat-toppedの場合、左上-左下方向で０)
+        /// X (If flat-topped, this value will not change in top-left to bottom-right direction)
         /// </summary>
         public int x 
         {
@@ -24,7 +24,7 @@ namespace HexagonalMap.Domain.HexMap
         }
         
         /// <summary>
-        /// Y座標 (flat-toppedの場合、上下方向で０)
+        /// Y (If flat-topped, this value will not change in vertical direction)
         /// </summary>
         public int y
         {
@@ -33,7 +33,7 @@ namespace HexagonalMap.Domain.HexMap
         }
         
         /// <summary>
-        /// Z座標 (flat-toppedの場合、右上-右下方向で０)
+        /// Z (If flat-topped, this value will not change in top-right to bottom-left direction)
         /// </summary>
         public int z
         {
@@ -44,11 +44,11 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="x">X座標</param>
-        /// <param name="y">Y座標</param>
-        /// <param name="z">Z座標</param>
-        /// <remarks>これはそのまま使えない 生成するにはFromCubeなどを使用する</remarks>
-        /// <exception cref="ArgumentException">x + y + z == 0でない時</exception>
+        /// <param name="x">X</param>
+        /// <param name="y">Y</param>
+        /// <param name="z">Z</param>
+        /// <remarks>Do NOT use this directly. Use fromCube.</remarks>
+        /// <exception cref="ArgumentException">if x + y + z != 0</exception>
         private CubeCoordinate(int x, int y, int z)
         {
             if (x + y + z != 0)
@@ -62,23 +62,23 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// Cube座標の数値からCube座標を生成する
+        /// Create a cube coordinate from cube coordinate values
         /// </summary>
-        /// <param name="x">X座標</param>
-        /// <param name="y">Y座標</param>
-        /// <param name="z">Z座標</param>
-        /// <returns>Cube座標オブジェクト</returns>
+        /// <param name="x">X</param>
+        /// <param name="y">Y</param>
+        /// <param name="z">Z</param>
+        /// <returns>Cube coordinate</returns>
         public static CubeCoordinate FromCube(int x, int y, int z)
         {
             return new CubeCoordinate(x, y, z);
         }
   
         /// <summary>
-        /// QR座標の数値からCube座標を生成する
+        /// Create a cube coordinate from QR coordinate values
         /// </summary>
-        /// <param name="q">Q座標</param>
-        /// <param name="r">R座標</param>
-        /// <returns>Cube座標オブジェクト</returns>
+        /// <param name="q">Q</param>
+        /// <param name="r">R</param>
+        /// <returns>Cube coordinate</returns>
         public static CubeCoordinate FromQr(int q, int r)
         {
             var x = q;
@@ -89,28 +89,28 @@ namespace HexagonalMap.Domain.HexMap
         }
         
         /// <summary>
-        /// QR座標オブジェクトからCube座標を生成する
+        /// Create a cube coordinate from a QR coodinate
         /// </summary>
-        /// <param name="input">QR座標オブジェクト</param>
-        /// <returns>Cube座標オブジェクト</returns>
+        /// <param name="input">QR coordinate (as object)</param>
+        /// <returns>Cube coordinate</returns>
         public static CubeCoordinate FromQr(QRCoordinate input)
         {
             return FromQr(input.q, input.r);
         }
 
         /// <summary>
-        /// 自分をQR座標化する
+        /// Create QR coordinate from itself
         /// </summary>
-        /// <returns>QR座標オブジェクト</returns>
+        /// <returns>QR coordinate</returns>
         public QRCoordinate ToQr()
         {
             return QRCoordinate.FromCube(this);
         }
         
         /// <summary>
-        /// ある座標から６近傍を見つけるための相対座標を返す
+        /// Returns relative position to 6 neighboring position to a given position
         /// </summary>
-        /// <returns>６近傍の相対座標。それぞれを座標に加算すれば６近傍を表す座標になる</returns>
+        /// <returns>List of 6 positions. Add these to the given position to get the actual neighboring positions.</returns>
         public static List<CubeCoordinate> AdjacentRelatives()
         {
             return new List<CubeCoordinate>
@@ -125,7 +125,7 @@ namespace HexagonalMap.Domain.HexMap
         }
         
         /// <summary>
-        /// 加算 セルからセルへ移動するときに使える
+        /// Addition - use this if you need to move from one place to another
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -136,7 +136,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 減算 距離計測?
+        /// Deduction - should be useful for measuring the distance
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -147,7 +147,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 一致
+        /// Equality
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -158,7 +158,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 不一致
+        /// Inequality
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -169,7 +169,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// ハッシュ生成
+        /// Creates hash
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -178,7 +178,7 @@ namespace HexagonalMap.Domain.HexMap
         }
         
         /// <summary>
-        /// 一致(任意のオブジェクトと)
+        /// Equality (against any object)
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -195,13 +195,13 @@ namespace HexagonalMap.Domain.HexMap
     }
 
     /// <summary>
-    /// QR座標系
+    /// QR coordinate (or Axial coordinate)
     /// </summary>
-    /// <remarks>標準のXY座標の1つの軸が30°傾いた座標。画面への描画を行う際に扱いやすい。</remarks>
+    /// <remarks>XY coordiante with one of the axis being skewed by 30 degrees. Useful for drawing onto the screen.</remarks>
     public struct QRCoordinate
     {
         /// <summary>
-        /// q座標 (flat-topの場合、上下方向で0)
+        /// Q (If flat-topped, this value will not change in vertical direction)
         /// </summary>
         public int q
         {
@@ -210,7 +210,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// r座標 (flat-topの場合、左上-右下方向で0)
+        /// R (If flat-topped, this value will not change in top-left to bottom-right direction)
         /// </summary>
         public int r
         {
@@ -221,8 +221,9 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="q">Q座標</param>
-        /// <param name="r">R座標</param>
+        /// <param name="q">Q</param>
+        /// <param name="r">R</param>
+        /// <remarks>Do NOT use this directly. Use fromQR.</remarks>
         private QRCoordinate(int q, int r)
         {
             this.q = q;
@@ -230,40 +231,40 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// QR座標の数値からQR座標を生成する
+        /// Create QR coordinate from QR coordinate values
         /// </summary>
-        /// <param name="q">Q座標</param>
-        /// <param name="r">R座標</param>
-        /// <returns>QR座標オブジェクト</returns>
+        /// <param name="q">Q</param>
+        /// <param name="r">R</param>
+        /// <returns>QR coordinate</returns>
         public static QRCoordinate FromQr(int q, int r)
         {
             return new QRCoordinate(q, r);
         }
 
         /// <summary>
-        /// Cube座標の数値からQR座標を生成する
+        /// Create QR coordinate from cube coordinate values
         /// </summary>
-        /// <param name="x">X座標</param>
-        /// <param name="y">Y座標</param>
-        /// <param name="z">Z座標</param>
-        /// <returns>QR座標オブジェクト</returns>
+        /// <param name="x">X</param>
+        /// <param name="y">Y</param>
+        /// <param name="z">Z</param>
+        /// <returns>QR coordinate</returns>
         public static QRCoordinate FromCube(int x, int y, int z)
         {
             return new QRCoordinate(x, z);
         }
 
         /// <summary>
-        /// Cube座標オブジェクトからQR座標を生成する
+        /// Create QR coordiante from cube coordinate
         /// </summary>
-        /// <param name="input">Cube座標オブジェクト</param>
-        /// <returns>QR座標オブジェクト</returns>
+        /// <param name="input">Cube coordinate (as object)</param>
+        /// <returns>QR coordinate</returns>
         public static QRCoordinate FromCube(CubeCoordinate input)
         {
             return FromCube(input.x, input.y, input.z);
         }
 
         /// <summary>
-        /// 自分をXYZ座標化する
+        /// Create cube coordinate from itself
         /// </summary>
         /// <returns>Cube座標オブジェクト</returns>
         public CubeCoordinate ToCube()
@@ -272,7 +273,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 加算 セルからセルへ移動するときに使える
+        /// Addition - use this if you need to move from one place to another
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -283,7 +284,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 減算 距離計測?
+        /// Deduction - should be useful for measuring the distance
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -294,7 +295,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 一致
+        /// Equality
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -305,7 +306,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 不一致
+        /// Inequality
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -316,7 +317,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// ハッシュ生成
+        /// Creates hash
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -325,7 +326,7 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// 一致(任意のオブジェクトと)
+        /// Equality (against any object)
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -343,13 +344,13 @@ namespace HexagonalMap.Domain.HexMap
     
 
     /// <summary>
-    /// 座標位置を表すオブジェクトの抽象クラス
+    /// Abstract class for object that needs hexagonal coordinate
     /// </summary>
     /// <remarks>
-    /// ６角形座標をもたせたいオブジェクトが継承すべき抽象クラス。
-    /// 内部的にはCube座標で持つが、それを取り出して相互変換可能。実データにこれを関連づけると良い
+    /// If your object needs hexagonal coordinate, inherit this class.
+    /// The coordinates are stored in cube coordinate, which you can convert to QR for drawing.
     /// </remarks>
-    public abstract class ICell
+    public abstract class Cell
     {
         /// <summary>
         /// Cube座標での位置
@@ -358,53 +359,53 @@ namespace HexagonalMap.Domain.HexMap
     }
 
     /// <summary>
-    /// ６角形座標系の平面を表すオブジェクトの抽象クラス
+    /// Abstract class for object that represents hexagonal field
     /// </summary>
     /// <remarks>
-    /// ここにICellを実装したオブジェクトを展開することができる。
-    /// これを継承した場合、指定のセルからの隣接セルを見つけられるようになる
+    /// You can map the object inheriting ICell here.
+    /// This class will help you find the neighboring cells.
     /// </remarks>
     public abstract class Field
     {
         /// <summary>
-        /// Cellの集まり
+        /// List of cells
         /// </summary>
         /// <remarks>
-        /// TODO: セルをハッシュテーブルで保管した方が高速?
+        /// TODO: Use hash table for performance?
         /// </remarks>
-        private readonly List<ICell> _cells;
+        protected readonly List<Cell> Cells;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public Field()
         {
-            _cells = new List<ICell>();
+            Cells = new List<Cell>();
         }
         
         /// <summary>
-        /// セルをフィールドに追加
+        /// Add cell into the field
         /// </summary>
         /// <param name="cell"></param>
-        /// <exception cref="ArgumentException">すでにあるセルと座標が重複した時</exception>
-        public void AddCell(ICell cell)
+        /// <exception cref="ArgumentException">if the position is already occupied</exception>
+        public void AddCell(Cell cell)
         {
             if (GetCellAtCube(cell.Position) != null)
             {
-                throw new ArgumentException("追加しようとしたセルの座標には別のセルがすでにいます", new Exception());
+                throw new ArgumentException("You'll have 2 cells in one position. This isn't allowed.", new Exception());
             }
-            _cells.Add(cell);
+            Cells.Add(cell);
         }
 
         /// <summary>
-        /// QR座標からセルを返す
+        /// Get cell from QR coordinates
         /// </summary>
         /// <param name="position"></param>
-        /// <returns>該当位置のセル</returns>
-        /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public ICell GetCellAtQr(QRCoordinate position)
+        /// <returns>Cell found</returns>
+        /// <exception cref="ArgumentOutOfRangeException">if there's no cell in the given position</exception>
+        public Cell GetCellAtQr(QRCoordinate position)
         {
-            CubeCoordinate positionRequested = CubeCoordinate.FromQr(position);
+            var positionRequested = CubeCoordinate.FromQr(position);
 
             var cell = GetCellAtCube(positionRequested);
 
@@ -412,33 +413,33 @@ namespace HexagonalMap.Domain.HexMap
         }
 
         /// <summary>
-        /// Cube座標にあるセルを返す
+        /// Get cell from Cube coordinates
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">対象の座標のセルがない時</exception>
-        public ICell GetCellAtCube(CubeCoordinate position)
+        /// <exception cref="ArgumentOutOfRangeException">if there's no cell in the given position</exception>
+        public Cell GetCellAtCube(CubeCoordinate position)
         {
-            foreach (var cell in _cells)
+            foreach (var cell in Cells)
             {
                 if (cell.Position == position)
                 {
                     return cell;
                 }
             }
-            throw new ArgumentOutOfRangeException("その座標はフィールド外です もしくはその座標のセルがフィールドから抜け落ちています", new Exception());   
+            throw new ArgumentOutOfRangeException("That position is either out of field, or does not contain a cell.", new Exception());   
         }
 
         /// <summary>
-        /// 指定セルの隣のセルを返す
+        /// Get the list of neighboring cells (up to 6)
         /// </summary>
-        /// <param name="cell"></param>
+        /// <param name="cell">Cell whose neighbor you want to find.</param>
         /// <returns></returns>
-        public List<ICell> FindAdjacentOf(ICell cell)
+        public List<Cell> FindAdjacentOf(Cell cell)
         {
-            List<CubeCoordinate> adjacentRelativePositions = CubeCoordinate.AdjacentRelatives();
-            List<CubeCoordinate> positionToFind = new List<CubeCoordinate>();
-            List<ICell> cellsToReturn = new List<ICell>();
+            var adjacentRelativePositions = CubeCoordinate.AdjacentRelatives();
+            var positionToFind = new List<CubeCoordinate>();
+            var cellsToReturn = new List<Cell>();
             
             foreach (var relativePosition in adjacentRelativePositions)
             {
