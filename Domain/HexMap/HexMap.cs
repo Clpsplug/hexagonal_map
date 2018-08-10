@@ -357,9 +357,9 @@ namespace HexagonalMap.Domain.HexMap
         /// </summary>
         public CubeCoordinate Position { get; protected set; }
 
-        public Cell(CubeCoordinate position)
+        public initPosition(CubeCoordinate position)
         {
-            Position = position;
+            this.Position = position;
         }
     }
 
@@ -378,16 +378,8 @@ namespace HexagonalMap.Domain.HexMap
         /// <remarks>
         /// TODO: Use hash table for performance?
         /// </remarks>
-        protected readonly List<Cell> Cells;
+        protected readonly List<Cell> Cells = new List<Cell>();
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public Field()
-        {
-            Cells = new List<Cell>();
-        }
-        
         /// <summary>
         /// Add cell into the field
         /// </summary>

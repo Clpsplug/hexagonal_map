@@ -30,7 +30,7 @@ namespace HexagonalMap.ExampleBlock
         /// </summary>
         /// <param name="position"></param>
         /// <param name="state"></param>
-        public Block(CubeCoordinate position, States state): base(position)
+        public Block(States state)
         {
             State = state;
         }

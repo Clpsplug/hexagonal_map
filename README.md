@@ -92,7 +92,7 @@ the hexagons' position with little math.
 Use `HexagonalMap.Domain.HexMap.QRCoordinate` to represent
 the QR coordinates.  
 
-```
+```c#
 // The center
 var center = QRCoordinate.fromQR(0,0);
 // Top hexagon (in flat-top system)
@@ -122,7 +122,7 @@ cube.toQR(); // -> converts itself (Cube) into QR coordinate
 
 You can also directly create those coordinates with values for other system:
 
-```
+```c#
 var qr = QRCoordinate.fromCube(0,0,0); // -> is a QR coordinate that is equal to Cube coordinate (0,0,0)
 var cube = CubeCoordinate.fromQR(0,0); // -> is a Cube coordinate that is equal to QR coordinate (0,0)
 ```
@@ -133,19 +133,13 @@ var cube = CubeCoordinate.fromQR(0,0); // -> is a Cube coordinate that is equal 
 
 If any of your object in your games needs to know its hexagonal position,
 inherit `HexagonalMap.Domain.HexMap.Cell`.  
-In your constructor, make sure to pass the position of the cell to `Cell`.  
-Example usage can be found in `HexagonalMap.ExampleBlock.Block`.
+To initialize its position, call `initPosition()`. Get its position
+through `Position` parameter.  
 
 ```c#
 public class Block: Cell
 {
     public int Score { get; set; }
-
-    // Be sure to include `: base(position)` or it won't compile!
-    public Block (CubeCoordinate position, int score): base(position)
-    {
-        Score = score;
-    }
 }
 ```
 
@@ -155,19 +149,6 @@ public class Block: Cell
 
 If you need a hexagonal field, inherit `Field` to your class.  
 This will help you finding cells in your game fields.  
-`Field` has a parameterless constructor, so you don't need to worry about
-adding `base()` to your class.  
-
-```c#
-public class Map: Field
-{
-    public int randomParam;
-    public Map(int value)
-    {
-        randomParam = value;
-    }
-}
-```
 
 Here are few things to remember:
 
@@ -179,7 +160,7 @@ var block = new Block(CubeCoordinate.fromCube(0,0,0), 50);
 map.AddCell(block);
 ```
 
-2. Since you can't change your `Cell`s position directly, if you want cells to move
+2. Since you shouldn't change your `Cell`s position directly, if you want cells to move
 to another place, you need to remove it from the map, create new `Cell`
 with different location, and add it back to the `Field`.
 3. `Field` cannot have more than 1 cell at the same spot. Forcing so will
