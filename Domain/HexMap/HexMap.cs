@@ -11,54 +11,41 @@ namespace HexagonalMap.Domain.HexMap
     /// <summary>
     /// Cube coordinates
     /// </summary>
-    /// <remarks>Coordinates based on a cube and a plane x + y + z = 0 slicing the cube</remarks>
+    /// <remarks>Coordinates based on a cube and a plane _x + _y + _z = 0 slicing the cube</remarks>
     public struct CubeCoordinate
     {
         /// <summary>
         /// X (If flat-topped, this value will not change in top-left to bottom-right direction)
         /// </summary>
-        public int x 
-        {
-            get { return x; }
-            private set { x = value; }
-        }
+        public int x { get; set; }
         
         /// <summary>
         /// Y (If flat-topped, this value will not change in vertical direction)
         /// </summary>
-        public int y
-        {
-            get { return y; }
-            private set { y = value; }
-        }
+        public int y { get; set; }
         
         /// <summary>
         /// Z (If flat-topped, this value will not change in top-right to bottom-left direction)
         /// </summary>
-        public int z
-        {
-            get { return z; }
-            private set { z = value; }
-        }
+        public int z { get; set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="x">X</param>
-        /// <param name="y">Y</param>
-        /// <param name="z">Z</param>
+        /// <param name="_x">X</param>
+        /// <param name="_y">Y</param>
+        /// <param name="_z">Z</param>
         /// <remarks>Do NOT use this directly. Use fromCube.</remarks>
-        /// <exception cref="ArgumentException">if x + y + z != 0</exception>
-        private CubeCoordinate(int x, int y, int z)
+        /// <exception cref="ArgumentException">if _x + _y + _z != 0</exception>
+        private CubeCoordinate(int _x, int _y, int _z): this()
         {
-            if (x + y + z != 0)
+            if (_x + _y + _z != 0)
             {
-                throw new ArgumentException("Impossible coordinate. x, y, z must add up to 0.", new Exception());
+                throw new ArgumentException("Impossible coordinate. _x, _y, _z must add up to 0.", new Exception());
             }
-            
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            x = _x;
+            y = _y;
+            z = _z;
         }
 
         /// <summary>
@@ -203,31 +190,23 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// Q (If flat-topped, this value will not change in vertical direction)
         /// </summary>
-        public int q
-        {
-            get { return q; }
-            private set { q = value; }
-        }
+        public int q { get; set; }
 
         /// <summary>
         /// R (If flat-topped, this value will not change in top-left to bottom-right direction)
         /// </summary>
-        public int r
-        {
-            get { return r; }
-            private set { r = value; }
-        }
+        public int r { get; set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="q">Q</param>
-        /// <param name="r">R</param>
+        /// <param name="_q">Q</param>
+        /// <param name="_r">R</param>
         /// <remarks>Do NOT use this directly. Use fromQR.</remarks>
-        private QRCoordinate(int q, int r)
+        private QRCoordinate(int _q, int _r): this()
         {
-            this.q = q;
-            this.r = r;
+            q = _q;
+            r = _r;
         }
 
         /// <summary>
@@ -357,7 +336,7 @@ namespace HexagonalMap.Domain.HexMap
         /// </summary>
         public CubeCoordinate Position { get; protected set; }
 
-        public initPosition(CubeCoordinate position)
+        public Cell(CubeCoordinate position)
         {
             this.Position = position;
         }
