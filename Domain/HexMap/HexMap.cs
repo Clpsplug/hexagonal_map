@@ -17,17 +17,17 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// X (If flat-topped, this value will not change in top-left to bottom-right direction)
         /// </summary>
-        public int x { get; set; }
+        public int x { get; private set; }
         
         /// <summary>
         /// Y (If flat-topped, this value will not change in vertical direction)
         /// </summary>
-        public int y { get; set; }
+        public int y { get; private set; }
         
         /// <summary>
         /// Z (If flat-topped, this value will not change in top-right to bottom-left direction)
         /// </summary>
-        public int z { get; set; }
+        public int z { get; private set; }
 
         /// <summary>
         /// Constructor
@@ -190,12 +190,12 @@ namespace HexagonalMap.Domain.HexMap
         /// <summary>
         /// Q (If flat-topped, this value will not change in vertical direction)
         /// </summary>
-        public int q { get; set; }
+        public int q { get; private set; }
 
         /// <summary>
         /// R (If flat-topped, this value will not change in top-left to bottom-right direction)
         /// </summary>
-        public int r { get; set; }
+        public int r { get; private set; }
 
         /// <summary>
         /// Constructor
